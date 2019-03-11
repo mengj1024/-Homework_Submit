@@ -27,11 +27,14 @@ from Login import views
 
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.urls import path
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^users/', include('Login.urls')),
-    # 将 auth 应用中的 urls 模块包含进来
-    url(r'^users/', include('django.contrib.auth.urls')),
+    url('admin/', admin.site.urls),
+    url('users/', include('Login.urls')),
+    url('users/', include('django.contrib.auth.urls')),
+    # path('home/',views.home, name='home'),
+    # url('',views.home, name='home'),
     url('',views.home, name='home'),
-]
+
+]    

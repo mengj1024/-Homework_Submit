@@ -1,8 +1,10 @@
 
 
 # Create your views here.
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,render_to_response
 from .froms import RegisterForm
+from django.http import HttpResponse
+
 
 def register(request):
     # 从 get 或者 post 请求中获取 next 参数值
@@ -15,7 +17,7 @@ def register(request):
         # request.POST 是一个类字典数据结构，记录了用户提交的注册信息
         # 这里提交的就是用户名（username）、密码（password）、确认密码、邮箱（email）
         # 用这些数据实例化一个用户注册表单
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST,request.FILES)
 
         # 验证数据的合法性
         if form.is_valid():
@@ -42,3 +44,18 @@ def home(request):
 
 # def login(request):
 #     return render(request,'users/login.html')
+
+
+def upload(request):
+    if request.method == 'POST':
+        myfile = request.FILES.get('file',None)
+        # print(myfile.name)
+        # print(myfile.size)
+        with open("templates/media/%s" %myfile.name,'wb') as fn:
+            fn.write(myfile.read())
+            fn.close()
+        # return HttpResponse("post")
+        return render(request,'files_upload/upload_success.html')
+    else:
+        return HttpResponse("erroe")
+
