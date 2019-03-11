@@ -14,3 +14,9 @@ class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         pass
 
+
+class ImageUpload(models.Model):
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        db_table='Login_ImageUpload'

@@ -46,15 +46,18 @@ def home(request):
 #     return render(request,'users/login.html')
 
 
+from .models import ImageUpload
 def upload(request):
     if request.method == 'POST':
         myfile = request.FILES.get('file',None)
-        # print(myfile.name)
-        # print(myfile.size)
-        with open("templates/media/%s" %myfile.name,'wb') as fn:
-            fn.write(myfile.read())
-            fn.close()
-        # return HttpResponse("post")
+        # with open("templates/media/%s" %myfile.name,'wb') as fn:
+            
+            # file_name = print(fn.name)
+        
+        #     fn.write(myfile.read())
+        #     fn.close()
+        Image1 = ImageUpload(name=myfile.name)
+        Image1.save()
         return render(request,'files_upload/upload_success.html')
     else:
         return HttpResponse("erroe")
