@@ -62,3 +62,9 @@ def upload(request):
     else:
         return HttpResponse("erroe")
 
+from .models import User
+
+def user_list(request):
+    users = User.objects.all()
+    print(users)
+    return render(request,'学生.html',{'users':users})

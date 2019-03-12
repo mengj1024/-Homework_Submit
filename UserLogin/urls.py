@@ -31,8 +31,8 @@ from django.urls import path
 import xadmin
 
 urlpatterns = [
+    path('xadmin',xadmin.site.urls),
     # url('admin/', admin.site.urls),
-    path('xadmin/',xadmin.site.urls),
     url('users/', include('Login.urls')),
     url('users/', include('django.contrib.auth.urls')),
     # path('home/',views.home, name='home'),
