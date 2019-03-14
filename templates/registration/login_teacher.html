@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center">
+    <div class="container">
+        <div class="flex-center">
+            <div class="unit-1-2 unit-1-on-mobile">
+                <h3>点击登陆进行登陆</h3>
+                    {% csrf_token %}
+                    <script>
+                            function login() {
+                                window.location.href="{% url 'users:Login_teacher' %}";
+                            }
+                    </script>  
+                    <button  class="btn btn-primary btn-block" onclick="login()">登录</button>
+
+  
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

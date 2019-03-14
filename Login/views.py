@@ -2,7 +2,7 @@
 
 # Create your views here.
 from django.shortcuts import render, redirect,render_to_response
-from .froms import RegisterForm
+from .forms import RegisterForm
 from django.http import HttpResponse
 
 
@@ -44,27 +44,104 @@ def home(request):
 
 # def login(request):
 #     return render(request,'users/login.html')
-
-
+from django.template import Context, Template
 from .models import ImageUpload
+
 def upload(request):
+    users = request.user.username
     if request.method == 'POST':
-        myfile = request.FILES.get('file',None)
-        # with open("templates/media/%s" %myfile.name,'wb') as fn:
+        Image1 = ImageUpload.objects.all()
+        b=list()
+        for ob in Image1:
+            a=ob.upload_name
+            b.append(a)
+        print(b)
+        c=b.count(request.user.username)
+        print(c)
+
+            # for i in b:
+            #     if b.count
+        # for users in Image1.users:
+        #     print(users)
+
+
+        # get(upload_name=users,default=None)
+        if c == 0:
+            myfile = request.FILES.get('file',None)
+            # with open(myfile,'wb') as fn:
+                
+            #     file_name = print(fn.name)
+            #     # upload_name = print(fn)
+            #     fn.write(myfile.read())
+            #     fn.close()
+            Image1 = ImageUpload(name=myfile.name,upload_name=users)
+            Image1.save()
+            return render(request,'files_upload/upload_success.html')
             
-            # file_name = print(fn.name)
-        
-        #     fn.write(myfile.read())
-        #     fn.close()
-        Image1 = ImageUpload(name=myfile.name)
-        Image1.save()
-        return render(request,'files_upload/upload_success.html')
+            
+        else:
+            return HttpResponse("已经上传过作业")
     else:
         return HttpResponse("erroe")
 
-from .models import User
+from .models import ImageUpload,User
+def delete(request):
+    users = request.user.username
+    if request.method == 'POST':
+        Image2 = ImageUpload.objects.get(upload_name=users)
+        Image2.delete()
+        return HttpResponse("删除成功")
 
-def user_list(request):
+    else:
+        return HttpResponse("删除失败")
+
+
+
+
+def Students_message(request):
     users = User.objects.all()
+    homework = ImageUpload.objects.all()
     print(users)
-    return render(request,'学生.html',{'users':users})
+    return render(request,'Teachers/学生信息.html',{'users':users,'homework':homework})
+
+def Homework_ck(request):
+    return render(request,"Teachers/作业批改.html")
+
+def Tou(request):
+    return render(request,"Teachers/头脑风暴.html")
+
+
+def Login_teacher(request):
+  return render(request,"Teachers/login.html")
+
+from .forms import TeacherloginForm
+from django.contrib import auth
+
+def teacherlogin(request):
+    error_msg = ""
+    form_obj = TeacherloginForm()
+    if request.method == "POST":
+        form_obj = TeacherloginForm(request.POST)
+        if form_obj.is_valid():
+            username = form_obj.cleaned_data.get("username")
+            password = form_obj.cleaned_data.get("password")
+            # if username == "Q1mi" and password == "123456":
+            user = auth.authenticate(username=username, password=password)
+            if user is not None:
+                auth.login(request, user)
+                if user.is_staff:
+                    return render(request,'Teachers/首页.html')
+                else:
+                    return HttpResponse("没有权限")    
+
+            else:
+                 error_msg = "用户名或密码错误"
+    return render(request, "registration/teacher-login.html", {"form_obj": form_obj, "error_msg": error_msg})
+
+def message(request):
+    user = User.objects.all()
+    homework = ImageUpload.objects.all()
+    print(user)
+    return render(request,"home/message.html",{'users':user,'homework':homework})
+
+

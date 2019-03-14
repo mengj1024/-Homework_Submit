@@ -26,17 +26,19 @@ from Login import views
 # ]
 
 from django.conf.urls import url, include
-from django.contrib import admin
+# from django.contrib import admin
 from django.urls import path
 import xadmin
-
+# from xadmin.
 urlpatterns = [
-    path('xadmin',xadmin.site.urls),
+
+    path('xadmin/',xadmin.site.urls),
     # url('admin/', admin.site.urls),
     url('users/', include('Login.urls')),
     url('users/', include('django.contrib.auth.urls')),
     # path('home/',views.home, name='home'),
     # url('',views.home, name='home'),
     url('',views.home, name='home'),
+    # url('Login/',views.login),
 
 ]    

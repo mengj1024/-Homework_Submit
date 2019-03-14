@@ -10,6 +10,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=50, blank=True)
+    # is_students = models.BooleanField(default=False)
+    # is_teachers = models.BooleanField(default=False)
 
     class Meta(AbstractUser.Meta):
         pass
@@ -18,12 +20,14 @@ class User(AbstractUser):
 class ImageUpload(models.Model):
     name = models.CharField(max_length=50,verbose_name=u"作业名称")
     upload_time = models.DateTimeField(verbose_name=u"上传时间",default=datetime.now)
-
-
+    upload_name = models.CharField(max_length=50,verbose_name=u"上传用户")
+    
     class Meta:
         verbose_name = u"作业查看"
         verbose_name_plural = verbose_name
         db_table='Login_ImageUpload'
+
+
 
 
 class Student(models.Model):
@@ -43,4 +47,9 @@ class Teacher(models.Model):
         verbose_name = "老师管理"
         verbose_name_plural = verbose_name
         db_table = "Teachers_num"
+from django import forms
+class TeacherloginForm(forms.Form):
+    username = forms.CharField(max_length=50,label="用户名")
+    password = forms.CharField(max_length=50,label="密码")
+
 
