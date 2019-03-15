@@ -2,6 +2,9 @@ from django.conf.urls import url
 from . import views
 from django.urls import path
 import xadmin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.static import serve
 
 app_name = 'users'
 urlpatterns = [
@@ -14,6 +17,8 @@ urlpatterns = [
     path("Login_teacher/",views.teacherlogin,name="Login_teacher"),
     path("message/",views.message,name="message"),
     path("delete/",views.delete,name="delete"),
+    # url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT},name="hello"),
+    # path('media/(.*?)',views.image,name="hello"),
+    path('media/',views.image,name="hello"),
 
-
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

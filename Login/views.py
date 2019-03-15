@@ -63,22 +63,19 @@ def upload(request):
             #     if b.count
         # for users in Image1.users:
         #     print(users)
-
-
         # get(upload_name=users,default=None)
         if c == 0:
             myfile = request.FILES.get('file',None)
-            # with open(myfile,'wb') as fn:
-                
-            #     file_name = print(fn.name)
-            #     # upload_name = print(fn)
+            # with open('media/%s'%myfile,'wb') as fn:
             #     fn.write(myfile.read())
-            #     fn.close()
-            Image1 = ImageUpload(name=myfile.name,upload_name=users)
+            # #     file_name = print(fn.name)
+            # #     # upload_name = print(fn)
+            # #     fn.write(myfile.read())
+            # #     fn.close()
+            # a=myfile.name
+            Image1 = ImageUpload(name=myfile.name,upload_name=users,img=myfile)
             Image1.save()
             return render(request,'files_upload/upload_success.html')
-            
-            
         else:
             return HttpResponse("已经上传过作业")
     else:
@@ -145,3 +142,17 @@ def message(request):
     return render(request,"home/message.html",{'users':user,'homework':homework})
 
 
+
+def image(request):
+
+    # response = HttpResponse(open('media/%s'%filename,'rb').read())
+    # response["content-Type"] = 'image/jpeg'
+    # return response
+    users = request.user.username
+    imgs =  ImageUpload.objects.get(upload_name=users)
+    # user = User.objects.all()
+    # print(imgs)
+    # print(users)
+    # print(user) 
+    homework = ImageUpload.objects.all()
+    return render(request,"registration/Welcome.html",{"img":imgs,'homework':homework})

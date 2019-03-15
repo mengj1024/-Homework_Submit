@@ -27,11 +27,18 @@
           }</script>
 </head>
 <body>
+    <form role="form" action="{%url 'users:hello'%}" method="post">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-default">222</button>
+    </form>
+  
+
 <div class="flex-center">
     <div class="container">
         <div>
             <h1 class="logo"><a href="{% url 'home' %}">作业批改</a></h1>
             {% if user.is_authenticated %}
+
             <!-- <p>你已登录，欢迎你： <a href="#">{{ user.username }}</a> </p> -->
             <div class="container">
                     <div class="row clearfix">

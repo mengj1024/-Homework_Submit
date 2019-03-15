@@ -71,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                # 'BookStore.views.global_settings',
             ],
         },
     },
@@ -139,6 +141,6 @@ STATICFILES_DIRS = [
 ]
 AUTH_USER_MODEL = 'Login.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL ="/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 

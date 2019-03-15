@@ -28,6 +28,13 @@ from Login import views
 from django.conf.urls import url, include
 # from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+
+from django.conf.urls.static import static
+from django.conf import settings
+from django.views.static import serve
+
+
 import xadmin
 # from xadmin.
 urlpatterns = [
@@ -40,5 +47,8 @@ urlpatterns = [
     # url('',views.home, name='home'),
     url('',views.home, name='home'),
     # url('Login/',views.login),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
 
-]    
+]
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+# # 这个加在末尾，注意，是末尾，urlpatterns 括号外

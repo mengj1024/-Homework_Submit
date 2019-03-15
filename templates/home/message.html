@@ -59,6 +59,7 @@
                       <tr>
                         <th>作业名称</th>
                         <th>提交时间</th>
+                        <th>提交者</th>
                         <th>成绩</th>
                       </tr>
                     </thead>
@@ -72,11 +73,15 @@
                       {% endfor%} -->
                         {%for homeworks in homework %}
                         <tr>
-                          <td><a href=#"">{{ homeworks.name}}</a></td>
+                          <td>{{ homeworks.img}}</a></td>
                           <td>{{ homeworks.upload_time}}</td>
-                          <td>{{ homeworks.upload_name}}</td>
+                          <td>
+                            {{ homeworks.upload_name}}
+                          </td>
+                          <td>暂定</td>
                         </tr>
                         {% endfor%}
+                       
                       <!-- <tr>
                         <td>Sachin</td>
                         <td>Mumbai</td>

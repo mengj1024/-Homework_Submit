@@ -1,7 +1,6 @@
 import xadmin
-from .models import User,ImageUpload,Student,Teacher
+from .models import User,ImageUpload,Student,Teacher,Grade
 from xadmin import views
-
 class UserAdmin(object):
     # show_detail_fields=['user_name']
     pass
@@ -13,6 +12,12 @@ class BaseSetting(object):
     use_bootswatch = True
 
 xadmin.site.register(views.BaseAdminView,BaseSetting)
+
+class GradeAdmin(object):
+    pass
+    list_display = ["id","grade_name",'grade_major']
+
+xadmin.site.register(Grade,GradeAdmin)
 
 class ImageUploadAdmin(object):
     pass
@@ -49,4 +54,5 @@ class GlobalSetting(object):
     menu_style = "accordion"    # 折叠左侧菜单栏
 
 xadmin.site.register(views.CommAdminView,GlobalSetting)
+
 
