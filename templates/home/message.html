@@ -11,20 +11,21 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
     function previewFile() {
-            var preview = document.querySelector('img');
-            var file    = document.querySelector('input[type=file]').files[0];
-            var reader  = new FileReader();
-          
-            reader.onloadend = function () {
-              preview.src = reader.result;
-            }
-          
-            if (file) {
-              reader.readAsDataURL(file);
-            } else {
-              preview.src = "";
-            }
-          }</script>
+      var preview = document.querySelector('img');
+      var file    = document.querySelector('input[type=file]').files[0];
+      var reader  = new FileReader();
+    
+      reader.onloadend = function () {
+        preview.src = reader.result;
+      }
+    
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        preview.src = "";
+      }
+    }</script>
+
 </head>
 <body>
 <div class="flex-center">
@@ -44,8 +45,11 @@
                                      <a href="{% url 'users:message'%}">作业查看</a>
                                 </li>
                                 <li>
-                                    <a href="#">头脑风暴</a>
+                                    <a href="{%url 'users:comment'%}">头脑风暴</a>
                                </li>
+                               <li class="">
+                                <a href="{%url 'users:Test2'%}">作业成绩（成绩公布后才可以查看）</a>
+                              </li>
                                 <li class="disabled">
                                      <a href="#">欢迎您{{ user.username }}</a>
                                 </li>
@@ -60,7 +64,7 @@
                         <th>作业名称</th>
                         <th>提交时间</th>
                         <th>提交者</th>
-                        <th>成绩</th>
+                        <!-- <th>成绩</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -71,17 +75,18 @@
                         <td>{{ user.add_time}}</td>
                       </tr>
                       {% endfor%} -->
+                      
                         {%for homeworks in homework %}
-                        <tr>
-                          <td>{{ homeworks.img}}</a></td>
+                          <tr>
+                          <td>{{ homeworks.img}}</td>
                           <td>{{ homeworks.upload_time}}</td>
                           <td>
                             {{ homeworks.upload_name}}
                           </td>
-                          <td>暂定</td>
-                        </tr>
+                          <!-- <td>{{ chengjis.chengji_Type }}</td> -->
+                          </tr>
                         {% endfor%}
-                       
+
                       <!-- <tr>
                         <td>Sachin</td>
                         <td>Mumbai</td>
@@ -95,11 +100,11 @@
                     </tbody>
                   </table>
                 <tbody>
-            <button class="btn btn-default">
+            <!-- <button class="btn btn-default">
                 <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a>
             </button>
             <button class="btn btn-default"><a href="{% url 'password_reset' %}?next={{ request.path }}">修改密码</a>
-            </button>
+            </button> --> 
             {% else %}
                 <p>你还没有登录，</p>
                     

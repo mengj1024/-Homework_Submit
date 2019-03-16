@@ -48,7 +48,7 @@ urlpatterns = [
     url('',views.home, name='home'),
     # url('Login/',views.login),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
-
-]
+    url("comments/",include("django_comments.urls")),
+    ]
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
 # # 这个加在末尾，注意，是末尾，urlpatterns 括号外

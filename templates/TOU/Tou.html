@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="comment-area">
+        <h2 class="comment-area-title">问题：</h2>
+    </div>
+    
+
+
+    <div class="comment-area">
+        <h2 class="comment-area-title">回答：</h2>
+        <form action="{% url 'upload_comment'%" method="POST">
+            {% csrf_token %}
+            <textarea id="comment-text" type="text" name="text"></textarea>
+
+            <input  type="submit" value="提交">  
+        </form>
+    </div>
+    
+
+
+    <div class="comment-area">
+        <h2 class="comment-area-title">回答列表：</h2>
+        <input type="hidden" name="object_id" value="{{Login.pk}}">
+        <input type="hidden" name="content_type" value="comment1">
+    </div>
+        
+
+
+
+
+
+
+</body>
+</html>

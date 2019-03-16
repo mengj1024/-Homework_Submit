@@ -45,8 +45,12 @@ INSTALLED_APPS = [
     'reversion',
     'bootstrap_toolkit',
     'future',
+    'django_comments',
+    'django.contrib.sites',
 
 ]
+
+SITE_ID=1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

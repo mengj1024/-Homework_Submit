@@ -81,7 +81,7 @@ def upload(request):
     else:
         return HttpResponse("erroe")
 
-from .models import ImageUpload,User
+from .models import ImageUpload,User,Chengji,Student
 def delete(request):
     users = request.user.username
     if request.method == 'POST':
@@ -136,10 +136,18 @@ def teacherlogin(request):
     return render(request, "registration/teacher-login.html", {"form_obj": form_obj, "error_msg": error_msg})
 
 def message(request):
+    users = request.user
     user = User.objects.all()
     homework = ImageUpload.objects.all()
-    print(user)
-    return render(request,"home/message.html",{'users':user,'homework':homework})
+    chengji = Student.objects.get(students_name=users)
+    print(users)
+    print(chengji)
+    return render(request,"home/message.html",{'users':user,'homework':homework,'chengji':chengji})
+    
+def chengji_cheak(request): 
+    users = request.user
+    chengji = Student.objects.get(students_name=users)
+    return render(request,"home/changji_cheak.html",{'chengji':chengji})
 
 
 
@@ -156,3 +164,44 @@ def image(request):
     # print(user) 
     homework = ImageUpload.objects.all()
     return render(request,"registration/Welcome.html",{"img":imgs,'homework':homework})
+
+
+# from .models import Comment
+# from django.contrib.contenttypes.models import ContentType
+# def upload_comment(request):
+#     return render(request,"TOU/Tou.html")
+
+from .models import Questions,Answers
+def Test(request):
+    # if request.method =='POST':
+    #     Q1 = request.POST.get('text','')
+    #     Q2 = Questions(Question=Q1)
+    #     Q2.save()
+    #     print(Q1)
+        users = User.objects.all()
+        Answers_name = Answers.objects.all()
+        # b=Answers_name.values_list('Answer')
+        # Answer      = Answers.objects.all().values()
+        Question     = Questions.objects.get()
+        # print(Answers_name)
+        # # print(b)
+        print(Question)
+        return render(request,"home/Tou.html",{'answer':Answers_name,'Question':Question},)
+    # else:
+    #     return HttpResponse('2333')
+
+
+def Test2(request):
+    users = request.user
+    chengji = Student.objects.get(students_name=users)
+    return render(request,"home/changji_cheak.html",{'chengji':chengji})
+
+def comments(request):
+    user = request.user
+    if request.method =='POST':
+        Q1 = request.POST.get('text',None)
+        Q2 = Answers(Answer=Q1,Answer_name=user)
+        Q2.save()
+        return HttpResponse("1")
+    else:
+        return HttpResponse("233")

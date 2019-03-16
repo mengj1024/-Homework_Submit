@@ -20,5 +20,7 @@ urlpatterns = [
     # url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT},name="hello"),
     # path('media/(.*?)',views.image,name="hello"),
     path('media/',views.image,name="hello"),
-
+    path("comment/",views.Test,name="comment"),
+    path('comment2/',views.comments,name="comment2"),
+    path("cheak/",views.Test2,name="Test2"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
