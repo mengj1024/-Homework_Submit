@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="container">
@@ -33,7 +34,7 @@
                     <!-- <p  class="list-group-item active ">
                         系统菜单
                     </p> -->
-                    <a   class="list-group-item">
+                    <a  href="{% url 'users:老师首页' %} "  class="list-group-item">
                         系统菜单
                     </a>
                     <a href="{% url 'users:学生信息' %}" class="list-group-item">学生信息</a>
@@ -43,7 +44,7 @@
                     <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a>
                      -->
                      <button class="btn btn-default">
-                        <a href="{% url 'users:Login_teacher' %}">注销登录</a>
+                        <!-- <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a> -->
                     </button>
                 </div>
             </div>
@@ -56,31 +57,45 @@
                         <li class="active"></li>
                     </ol>
                 </div>
-                <div align="center" style="padding-top: 50px;">
+                <div align="center" style="padding-top: 0px;">
                     <table class="table table-striped">
                         <!-- <caption>条纹表格布局</caption> -->
                         <thead>
                           <tr>
-                            <th>姓名</th>
-                            <th>23</th>
-                            <th>邮编</th>
+                            <th>作业</th>
+                            <th>批改</th>
+                            <!-- <th>23</th>
+                            <th>邮编</th> -->
                           </tr>
                         </thead>
                         <tbody>
-                            {%for user in users %}
+                            {%for stus in stu %}
                           <tr>
-                            <td>{{ user}}</td>
-                            <td>{{ user.email}}</td>
-                            <td>{{ user.add_time}}</td>
+                            <!-- <td> <a href="{% url 'users:作业批改'%}">{{ stus.students_name}}"></a></td> -->
+                            <td> {{ stus.students_name}}
+                                    <form action="{% url 'users:test3'%}" method="POST" name="查看作业">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{stus.students_name}}" name="查看">
+                                            <input type="submit" >
+                                    </form>
+                                   
+                                </td>
+                                
+                            <td>
+                                <!-- <button >
+                                    <a href="{% url 'users:test3'%}">点击查看作业</a>
+                                </button> -->
+                                <!-- <form action="{% url 'users:test3'%}" method="POST" name="查看作业">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{stus.students_name}}" name="查看">
+                                    <input type="submit" >
+                                </form> -->
+                            </td>
+                            <!-- <td>{{ user.add_time}}</td>  -->
                           </tr>
+
                           {% endfor%}
-                            {%for homeworks in homework %}
-                            <tr>
-                              <td><a href=#"">{{ homeworks.name}}</a></td>
-                              <td>{{ homeworks.id}}</td>
-                              <td>{{ homeworks.upload_time}}</td>
-                            </tr>
-                            {% endfor%}
+
                           <!-- <tr>
                             <td>Sachin</td>
                             <td>Mumbai</td>
@@ -110,3 +125,25 @@
 
 </body>
 </html>
+
+
+<form action="" method="POST">
+        <label>
+            <input type="checkbox" name="A">A
+        </label>
+        <label>
+            <input type="checkbox" name="B">B
+        </label>
+        <label>
+            <input type="checkbox" name="C">C
+        </label>
+        <label>
+            <input type="checkbox" name="D">D
+        </label>
+        <br>
+        <input type="submit" value="提交">
+</form> 
+
+{% for imgs in img %}
+<img src="{{ MEDIA_URL }}{{imgs.img}}">
+{% endfor%}

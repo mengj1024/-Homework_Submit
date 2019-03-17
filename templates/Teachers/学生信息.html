@@ -20,7 +20,7 @@
                             <a class="navbar-brand " href="#">后台管理系统</a>
                         </div>
                         <div id="navbar" class="navbar-right">
-                            <a class="navbar-brand" href="#">当前用户：{{ user.username}}</a>
+                            <a class="navbar-brand" href="#">当前用户：{{user.username}}</a>
                         </div>
                     </div>
                 </nav>
@@ -33,7 +33,7 @@
                     <!-- <p  class="list-group-item active ">
                         系统菜单
                     </p> -->
-                    <a   class="list-group-item">
+                    <a  href="{% url 'users:老师首页' %} "  class="list-group-item">
                         系统菜单
                     </a>
                     <a href="{% url 'users:学生信息' %}" class="list-group-item active ">学生信息</a>
@@ -42,7 +42,7 @@
                     <!-- <a href="#" class="list-group-item">管理四</a> -->
                     <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a> -->
                     <button class="btn btn-default">
-                        <a href="{% url 'xadmin:logout' %}">注销登录</a>
+                        <!-- <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a> -->
                     </button>
                 </div>
             </div>
@@ -55,31 +55,31 @@
                         <li class="active"></li>
                     </ol>
                 </div>
-                <div align="center" style="padding-top: 50px;">
+                <div align="center" style="padding-top: 0px;">
                     <table class="table table-striped">
                         <!-- <caption>条纹表格布局</caption> -->
                         <thead>
                           <tr>
                             <th>姓名</th>
-                            <th>23</th>
-                            <th>邮编</th>
+                            <th>班级</th>
+                            <th>作业成绩</th>
                           </tr>
                         </thead>
                         <tbody>
-                            {%for user in users %}
+                            {%for stus in stu %}
                           <tr>
-                            <td>{{ user}}</td>
-                            <td>{{ user.email}}</td>
-                            <td>{{ user.add_time}}</td>
+                            <td>{{ stus.nickname }}</td>
+                            <td>{{ stus.students_grade }}</td>
+                            <td>{{ stus.stu_chengji }}</td>
                           </tr>
                           {% endfor%}
-                            {%for homeworks in homework %}
+                            <!-- {%for homeworks in homework %}
                             <tr>
                               <td><a href=#"">{{ homeworks.name}}</a></td>
                               <td>{{ homeworks.id}}</td>
                               <td>{{ homeworks.upload_time}}</td>
                             </tr>
-                            {% endfor%}
+                            {% endfor%} -->
                           <!-- <tr>
                             <td>Sachin</td>
                             <td>Mumbai</td>

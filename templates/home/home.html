@@ -68,7 +68,7 @@
             <div class="container">
                     <div class="row clearfix">
                         <div class="col-md-12 column">
-                            <form role="form" action="/users/upload/" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{% url 'users:upload'%}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <!-- <div class="form-group">
                                      <label for="exampleInputEmail1">作业信息</label><input type="email" class="form-control" id="exampleInputEmail1" />
@@ -80,6 +80,7 @@
                                      <label for="exampleInputFile">文件上传</label>
 <!--                                     <input type="file" onchange="previewFile()"><br>-->
                                      <input type="file" onchange="previewFile()" name="file"><br>
+                                     <input type="hidden" value="{{ stu.students_name }}" name="上传者">
                                      <img src="" height="200" alt="Image preview...">
                                      <!-- <input type="file" id="exampleInputFile" /> -->
                                     <p class="help-block">

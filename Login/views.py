@@ -40,7 +40,8 @@ def register(request):
 
 
 def home(request):
-    return render(request, 'home/home.html')
+    a=Student.objects.all()
+    return render(request, 'home/home.html',{"stu":a})
 
 # def login(request):
 #     return render(request,'users/login.html')
@@ -50,14 +51,20 @@ from .models import ImageUpload
 def upload(request):
     users = request.user.username
     if request.method == 'POST':
+        # stu_home = request.POST.get("上传者","")
+        # ImageUpload.objects.filter(students_home=stu_home)
+        # c=str(stu_home)
+        # a=ImageUpload()
+        # a.students_home=c
+        # a.save()
         Image1 = ImageUpload.objects.all()
         b=list()
         for ob in Image1:
             a=ob.upload_name
             b.append(a)
-        print(b)
+        # print(b)
         c=b.count(request.user.username)
-        print(c)
+        # print(c)
 
             # for i in b:
             #     if b.count
@@ -83,7 +90,7 @@ def upload(request):
 
 from .models import ImageUpload,User,Chengji,Student
 def delete(request):
-    users = request.user.username
+    users = request.user
     if request.method == 'POST':
         Image2 = ImageUpload.objects.get(upload_name=users)
         Image2.delete()
@@ -96,17 +103,74 @@ def delete(request):
 
 
 def Students_message(request):
-    users = User.objects.all()
+    users = request.user
     homework = ImageUpload.objects.all()
+    stu      = Student.objects.all()   
     print(users)
-    return render(request,'Teachers/学生信息.html',{'users':users,'homework':homework})
+    return render(request,'Teachers/学生信息.html',{'user':users,'homework':homework,'stu':stu})
 
 def Homework_ck(request):
-    return render(request,"Teachers/作业批改.html")
+#    users =
+    user = Student.objects.all()
+    print(user)
+    b=list()
+    # imgs = ImageUpload.objects.all()
+    for a in user:
+
+        imgs =  ImageUpload.objects.get(upload_name=a)
+        b.append(imgs)
+    print(b)
+#        print(cheak)
+#    print(users)
+#    print(user)
+    return render(request,"Teachers/作业批改.html",{'stu':user,'img':b})
+
+def test3(request):
+    username = request.POST.get("查看","")
+
+    # print("username",username,type(username))
+    user = Student.objects.all()
+    # print(type(user))
+    for c in user:
+        d=c.students_name
+        g=str(d)
+        if g == username:
+            AA=d
+    # print(AA)
+    # print(type(AA))
+    # print(type(g))
+    # print(c)
+    b=list()
+    c=list()
+    # imgs = ImageUpload.objects.all()
+    # for a in user:
+    imgs =  ImageUpload.objects.all()
+    # print(imgs)
+    for B in imgs:
+        c.append(B)
+        C=str(B)
+        # print("B",B)
+        b.append(C)
+    # print("b",b,"c",c)
+    # print("C",C,type(C))
+    if username in b:
+        Q=b.index(username)
+        # print(Q)
+        D=c[Q]
+    # print(type(D))    
+        return render(request,"registration/2333.html",{'stu':user,'img':D,'ss':AA,'aa':username})
+    else:
+        return HttpResponse("2333")
+    # return HttpResponse('233')
+    # return render(request,"registration/2333.html",{'stu':user,'img':imgs,'ss':AA,'aa':username})
+    # print(type(BB))
+    
 
 def Tou(request):
     return render(request,"Teachers/头脑风暴.html")
 
+def teacher_home(request):
+    return render(request,"Teachers/首页.html")
 
 def Login_teacher(request):
   return render(request,"Teachers/login.html")
@@ -139,10 +203,10 @@ def message(request):
     users = request.user
     user = User.objects.all()
     homework = ImageUpload.objects.all()
-    chengji = Student.objects.get(students_name=users)
+    # chengji = Student.objects.get(students_name=users)
     print(users)
-    print(chengji)
-    return render(request,"home/message.html",{'users':user,'homework':homework,'chengji':chengji})
+
+    return render(request,"home/message.html",{'users':user,'homework':homework,})
     
 def chengji_cheak(request): 
     users = request.user
@@ -152,7 +216,6 @@ def chengji_cheak(request):
 
 
 def image(request):
-
     # response = HttpResponse(open('media/%s'%filename,'rb').read())
     # response["content-Type"] = 'image/jpeg'
     # return response

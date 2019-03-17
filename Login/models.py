@@ -32,8 +32,9 @@ class User(AbstractUser):
 
 class ImageUpload(models.Model):
     name = models.CharField(max_length=50,verbose_name=u"作业名称")
-    img = models.ImageField(upload_to="")
+    img = models.ImageField(upload_to="作业图片/")
     upload_time = models.DateTimeField(verbose_name=u"上传时间",default=datetime.now)
+    # students_home = models.OneToOneField("Student",on_delete=None,null=True)
     upload_name = models.CharField(max_length=50,verbose_name=u"上传用户")
     def __str__(self):
         return "%s" %(self.upload_name)
@@ -50,14 +51,14 @@ class ImageUpload(models.Model):
 class Student(models.Model):
     nickname = models.CharField(max_length=50,verbose_name=u"学生姓名")
     add_time = models.DateTimeField(verbose_name=u"加入时间",default=datetime.now)
-    students_name = models.OneToOneField("User",on_delete=models.CASCADE)
-    students_home = models.OneToOneField("ImageUpload",on_delete=models.CASCADE)
-    stu_chengji = models.OneToOneField("chengji",on_delete=models.CASCADE)
-    students_grade = models.ForeignKey("Grade",on_delete=models.CASCADE)
+    students_name = models.OneToOneField("User",on_delete=None)
+    # students_home = models.OneToOneField("ImageUpload",on_delete=None)
+    stu_chengji = models.ForeignKey("Chengji",on_delete=None,verbose_name=u'成绩发布')
+    students_grade = models.ForeignKey("Grade",on_delete=None)
     students_teacher = models.ManyToManyField("Teacher")
     # Grade = models.ForeignKey("Teacher",on_delete=models.CASCADE)
     def __str__(self):
-        return "%s"%(self.stu_chengji)
+        return "%s"%(self.students_name)
     class Meta:
         verbose_name = u"学生管理"    # 这个名字是显示在xadmin后台左侧栏中
         verbose_name_plural = verbose_name
@@ -66,7 +67,8 @@ class Student(models.Model):
 class Teacher(models.Model):
     nickname = models.CharField(max_length=50,verbose_name=u"教师姓名")
     add_time = models.DateTimeField(verbose_name=u"加入时间",default=datetime.now)
-    teacher_name = models.OneToOneField("User",on_delete=models.CASCADE)
+    teacher_name = models.OneToOneField("User",on_delete=None)
+    stu_chengji = models.ForeignKey("Chengji",on_delete=None,verbose_name=u'成绩发布')
 
     teacher_grade = models.ManyToManyField("Grade")
     # teacher_stu = models.ManyToManyField("Student")
@@ -84,6 +86,7 @@ class TeacherloginForm(forms.Form):
 
 class Chengji(models.Model):
     chengji_Type = models.CharField(max_length=5,verbose_name=u"成绩")
+    # stu_chengji  = models.ForeignKey('Student',on_delete=models.CASCADE,verbose_name=u'学生成绩')
     def __str__(self):
         return "%s"%(self.chengji_Type)
     class Meta:

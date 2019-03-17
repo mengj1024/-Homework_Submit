@@ -41,13 +41,13 @@ urlpatterns = [
 
     path('xadmin/',xadmin.site.urls),
     # url('admin/', admin.site.urls),
-    url('users/', include('Login.urls')),
+    url('', include('Login.urls')),
     url('users/', include('django.contrib.auth.urls')),
     # path('home/',views.home, name='home'),
     # url('',views.home, name='home'),
     url('',views.home, name='home'),
     # url('Login/',views.login),
-    url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
+    # url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
     url("comments/",include("django_comments.urls")),
     ]
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
