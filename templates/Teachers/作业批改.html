@@ -63,6 +63,7 @@
                         <thead>
                           <tr>
                             <th>作业</th>
+                            <!-- <th>作业名称</th> -->
                             <th>批改</th>
                             <!-- <th>23</th>
                             <th>邮编</th> -->
@@ -72,15 +73,25 @@
                             {%for stus in stu %}
                           <tr>
                             <!-- <td> <a href="{% url 'users:作业批改'%}">{{ stus.students_name}}"></a></td> -->
-                            <td> {{ stus.students_name}}
-                                    <form action="{% url 'users:test3'%}" method="POST" name="查看作业">
+                            <td class="text-center"> {{ stus.students_name}}
+                                    <!-- <form action="{% url 'users:test3'%}" method="POST" name="查看作业">
                                             {% csrf_token %}
                                             <input type="hidden" value="{{stus.students_name}}" name="查看">
                                             <input type="submit" >
+                                    </form> -->
+                                </td>
+                               
+                                <!-- <td class="text-center">
+                                        {{homework}}
+                                </td> -->
+                                <td class="text-center"> 
+                                    <form action="{% url 'users:test3'%}" method="POST" name="查看作业">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{stus.students_name}}" name="查看">
+                                            <input type="submit" value="批改" >
                                     </form>
                                    
                                 </td>
-                                
                             <td>
                                 <!-- <button >
                                     <a href="{% url 'users:test3'%}">点击查看作业</a>
@@ -127,23 +138,3 @@
 </html>
 
 
-<form action="" method="POST">
-        <label>
-            <input type="checkbox" name="A">A
-        </label>
-        <label>
-            <input type="checkbox" name="B">B
-        </label>
-        <label>
-            <input type="checkbox" name="C">C
-        </label>
-        <label>
-            <input type="checkbox" name="D">D
-        </label>
-        <br>
-        <input type="submit" value="提交">
-</form> 
-
-{% for imgs in img %}
-<img src="{{ MEDIA_URL }}{{imgs.img}}">
-{% endfor%}

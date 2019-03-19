@@ -34,7 +34,8 @@ class ImageUpload(models.Model):
     name = models.CharField(max_length=50,verbose_name=u"作业名称")
     img = models.ImageField(upload_to="作业图片/")
     upload_time = models.DateTimeField(verbose_name=u"上传时间",default=datetime.now)
-    # students_home = models.OneToOneField("Student",on_delete=None,null=True)
+    stu_name   = models.OneToOneField("Student",null=True,on_delete=None)
+    hw_chengji = models.OneToOneField("Chengji",on_delete=None,null=True)
     upload_name = models.CharField(max_length=50,verbose_name=u"上传用户")
     def __str__(self):
         return "%s" %(self.upload_name)
@@ -49,11 +50,12 @@ class ImageUpload(models.Model):
 #     grade_name = models.CharField(max_length=50,verboser_name=u"班级名称")
 
 class Student(models.Model):
+    # student_id = models.BigAutoField(primary_key=True)
     nickname = models.CharField(max_length=50,verbose_name=u"学生姓名")
     add_time = models.DateTimeField(verbose_name=u"加入时间",default=datetime.now)
     students_name = models.OneToOneField("User",on_delete=None)
     # students_home = models.OneToOneField("ImageUpload",on_delete=None)
-    stu_chengji = models.ForeignKey("Chengji",on_delete=None,verbose_name=u'成绩发布')
+    # stu_chengji = models.ForeignKey("Chengji",on_delete=None,verbose_name=u'成绩发布',null=True)
     students_grade = models.ForeignKey("Grade",on_delete=None)
     students_teacher = models.ManyToManyField("Teacher")
     # Grade = models.ForeignKey("Teacher",on_delete=models.CASCADE)
@@ -85,7 +87,7 @@ class TeacherloginForm(forms.Form):
     password = forms.CharField(max_length=50,label="密码")
 
 class Chengji(models.Model):
-    chengji_Type = models.CharField(max_length=5,verbose_name=u"成绩")
+    chengji_Type = models.CharField(max_length=5,verbose_name=u"成绩",)
     # stu_chengji  = models.ForeignKey('Student',on_delete=models.CASCADE,verbose_name=u'学生成绩')
     def __str__(self):
         return "%s"%(self.chengji_Type)

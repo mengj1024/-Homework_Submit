@@ -1,5 +1,4 @@
 
-
 # Create your views here.
 from django.shortcuts import render, redirect,render_to_response
 from .forms import RegisterForm
@@ -112,22 +111,31 @@ def Students_message(request):
 def Homework_ck(request):
 #    users =
     user = Student.objects.all()
-    print(user)
+#    print(user)
+    homework = ImageUpload.objects.all()
     b=list()
+    c=list()
     # imgs = ImageUpload.objects.all()
     for a in user:
-
-        imgs =  ImageUpload.objects.get(upload_name=a)
-        b.append(imgs)
-    print(b)
+    #     print(a)
+    #     c.append(a)
+    # print(c)
+    # d= c[8:]
+    # print(d)
+    # for f in d:
+    #     print(f)
+        usera = Student.objects.get(nickname=a)
+    #        print(usera)
+        # imgs =  ImageUpload.objects.get(upload_name=f)
+        # b.append(imgs)
+#    print(b)
 #        print(cheak)
 #    print(users)
 #    print(user)
-    return render(request,"Teachers/作业批改.html",{'stu':user,'img':b})
+    return render(request,"Teachers/作业批改.html",{'stu':user,'img':b,'homework':homework})
 
 def test3(request):
     username = request.POST.get("查看","")
-
     # print("username",username,type(username))
     user = Student.objects.all()
     # print(type(user))
@@ -211,6 +219,7 @@ def message(request):
 def chengji_cheak(request): 
     users = request.user
     chengji = Student.objects.get(students_name=users)
+
     return render(request,"home/changji_cheak.html",{'chengji':chengji})
 
 
@@ -268,3 +277,67 @@ def comments(request):
         return HttpResponse("1")
     else:
         return HttpResponse("233")
+
+from .forms import PiGaiForm
+def pigai(request):
+    username =request.POST.get("username1","")
+    print(username)
+    a= PiGaiForm()
+    if request.method == "POST":
+        a = PiGaiForm(request.POST)
+        # print(a)
+        return render(request,"registration/2444.html",{'a':a,'username2':username})
+    else:
+        return HttpResponse("2")
+    
+    return render(request,"registration/2444.html",{'a':a,'username2':username})
+
+def pigai1(request):
+    from Login import forms
+#    from django.forms import fields,widgets
+#    a = forms.PiGaiForm()
+#    b=a.fields['grade'].choices
+#    print(b)
+#    return HttpResponse('233')
+    
+    if request.method=='POST':
+        W = request.POST.get("学生姓名","")
+        # print(username)
+        username=W.strip()
+        # a=PiGaiForm(request.POST)
+        # b=Chengji.objects.all()
+        # c=ImageUpload.objects.get(hw_chengji=Q1)
+        # print(a)
+        # print("b=",b)
+        Q1 = request.POST.get('test',None)
+        # print(a)
+        # c=ImageUpload.objects.get(hw_chengji=Q1)
+        print("对应成绩id=",Q1)
+        d=Chengji.objects.get(pk=Q1) #包含成绩的ID
+        c=ImageUpload.objects.all()
+        # .values_list("upload_name")
+        for aa in c:
+            bb=str(aa)
+            # print(type(bb))
+            # print(bb)
+            # print(username)
+            # print(type(username))
+            if username == bb:
+                B=ImageUpload.objects.filter(upload_name=aa).update(hw_chengji=d) #包含学生的ID
+                print(B)
+                break
+            else:
+                print("2")
+        print("成绩=",d)
+        # print(c)
+        # c=ImageUpload.objects.all().values_list("upload_name")
+        # d=Chengji.objects.get(pk=Q1)
+        # print(c)
+        # print(d)
+        # f =ImageUpload()
+
+        # f.save()
+        return HttpResponse('2333')
+    else:
+        return HttpResponse('2')
+

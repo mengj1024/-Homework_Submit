@@ -25,4 +25,6 @@ urlpatterns = [
     path("comment/",views.Test,name="comment"),
     path('comment2/',views.comments,name="comment2"),
     path("cheak/",views.Test2,name="Test2"),
+    path("pigai/",views.pigai,name="批改"),
+    path("test4/",views.pigai1,name="test4"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

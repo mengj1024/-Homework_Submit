@@ -1,0 +1,26 @@
+<form class="form" action="{% url 'users:test4' %}" method="post">
+    {% csrf_token %}
+
+    
+     <select class="selectpicker" name="test"> 
+        {% for b in a.grade %}
+        <option value="">{{b}}</option>
+            {% endfor%}
+      </select> 
+        
+      <input type="hidden" value="{{username2}}" name="学生姓名">
+    <button type="submit" class="btn btn-primary btn-block">批改</button>
+    </p>
+
+
+    <!-- <select class="selectpicker" name="test"> -->
+      <!-- <option value="{{a.grade}}">  </option> -->
+      <!-- <option value="B">广西省</option>
+      <option value="C">福建省</option>
+      <option value="D">湖南省</option>
+      <option value="5">山东省</option>                             -->
+
+  </form>
+
+
+  {{username2}}
