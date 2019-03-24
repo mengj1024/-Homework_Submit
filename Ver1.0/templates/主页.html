@@ -38,10 +38,12 @@
                                 <nav class="navbar navbar-fixed-top" role="navigation">
                                     <div class="container">
                                         <div class="navbar-header">
-                                            <a href="{% url 'login1' %}"class="navbar-brand " href="#">毕业设计-学生</a>
+                                            <a href=""class="navbar-brand " href="#">毕业设计-学生</a>
                                             <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
                                         </div>
-                                        
+                                        <div>
+                                                <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> 
+                                        </div>
                                     </div>
                                 </nav>
                             </div>
@@ -57,8 +59,8 @@
                                         系统菜单
                                     </a>
                                     <a href="{% url 'Main:作业上传'%}" class="list-group-item">作业上传</a>
-                                    <a href="" class="list-group-item">作业批改</a>
-                                    <a href="" class="list-group-item">头脑风暴</a>
+                                    <!-- <a href="" class="list-group-item">作业批改</a> -->
+                                    <a href="{% url 'Main:学生a页面'%}" class="list-group-item">头脑风暴</a>
                                     <!-- <a href="#" class="list-group-item">管理四</a> -->
                                     <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a>
                                      -->
@@ -86,9 +88,9 @@
                                     <button class="btn btn-default">
                                         <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a>
                                     </button>
-                                    <button class="btn btn-default">
+                                    <!-- <button class="btn btn-default">
                                             <a href="{% url 'password_change' %}?next={{ request.path }}">修改密码</a>
-                                        </button>
+                                        </button> -->
                                           <!-- <tr>
                                             <td>Sachin</td>
                                             <td>Mumbai</td>
@@ -141,7 +143,7 @@
                     <div class="col-md-12">
                         <div align="center" style="padding-top: 250px">
                                 <button class="btn btn-default">
-                                        <a class="navbar-brand" href="#">当前用户：{{user.username}}</a>
+                                        <!-- <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> -->
                                     </button>
                         </div>
                     </div>

@@ -41,10 +41,12 @@
                                 <nav class="navbar navbar-fixed-top" role="navigation">
                                     <div class="container">
                                         <div class="navbar-header">
-                                            <a href="{% url 'login1' %}"class="navbar-brand " href="#">毕业设计-学生</a>    
+                                            <a href=""class="navbar-brand " href="#">毕业设计-学生</a>    
                                             <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
                                         </div>
-                                        
+                                        <div>
+                                                <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> 
+                                        </div>
                                     </div>
                                 </nav>
                             </div>
@@ -60,8 +62,8 @@
                                         系统菜单
                                     </a>
                                     <a href="{% url 'Main:作业上传'%}" class="list-group-item active">作业上传</a>
-                                    <a href="" class="list-group-item">作业批改</a>
-                                    <a href="" class="list-group-item">头脑风暴</a>
+                                    <!-- <a href="" class="list-group-item">作业批改</a> -->
+                                    <a href="{% url 'Main:学生a页面'%}" class="list-group-item">头脑风暴</a>
                                     <!-- <a href="#" class="list-group-item">管理四</a> -->
                                     <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a>
                                      -->
@@ -87,9 +89,12 @@
                 {% csrf_token%}
               
                 <select class="form-control" name="grade">
+                    {% for forms in form %}
                         <!-- <option value="">{{name}}</option> -->
-                        <option value="{{form.major}}
+                        <option value="{{ forms }}">{{ forms }}</option>
+                        {% endfor%}
                 </select>
+               
                 <input type="hidden" value="{{ name }}" name="1">
                 <button class="btn btn-info"  type="submit" style="padding-left:100px;padding-right:100px">选择</button>
             </form>
@@ -125,7 +130,7 @@
                     <div class="col-md-12">
                         <div align="center" style="padding-top: 250px">
                                 <button class="btn btn-default">
-                                        <a class="navbar-brand" href="#">当前用户：{{user.username}}</a>
+                                        <!-- <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> -->
                                     </button>
                         </div>
                     </div>

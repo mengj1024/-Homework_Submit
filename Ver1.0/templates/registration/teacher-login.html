@@ -23,7 +23,7 @@
         <div class="flex-center">
             <div class="unit-1-2 unit-1-on-mobile">
                 <h3>teacher登录</h3>
-                <form class="form" action="{% url 'Main:老师登陆' %}" method="post">
+                <form class="form" action="{% url 'Main:老师登陆' %}" method="post" {% csrf_token %}
                     {% csrf_token %}
                     <p>
                       {{ form_obj.username.label }}

@@ -8,7 +8,7 @@ xadmin.site.register(views.BaseAdminView,BaseSetting)
 
 
 
-from .models import Student,Teacher,Score,Task,Major,Grade
+from .models import Student,Teacher,Score,Task,Major,Grade,abc,Question,Answer
 
 class StudentAdmin(object):
     pass
@@ -39,3 +39,15 @@ class GlobalSetting(object):
     site_footer = "2019"
     menu_style = "accordion"    # 折叠左侧菜单栏
 xadmin.site.register(views.CommAdminView,GlobalSetting)
+
+class abcAdmin(object):
+    pass
+xadmin.site.register(abc,abcAdmin)
+
+class QuestionAdmin(object):
+    pass
+xadmin.site.register(Question,QuestionAdmin)
+
+class AnswerAdmin(object):
+    pass
+xadmin.site.register(Answer,AnswerAdmin)

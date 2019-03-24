@@ -41,10 +41,12 @@
                                 <nav class="navbar navbar-fixed-top" role="navigation">
                                     <div class="container">
                                         <div class="navbar-header">
-                                            <a href="{% url 'login1' %}"class="navbar-brand " href="#">毕业设计-学生</a>    
+                                            <a href=""class="navbar-brand " href="#">毕业设计-学生</a>    
                                             <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
                                         </div>
-                                        
+                                        <div>
+                                                <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> 
+                                        </div>
                                     </div>
                                 </nav>
                             </div>
@@ -60,8 +62,8 @@
                                         系统菜单
                                     </a>
                                     <a href="{% url 'Main:作业上传'%}" class="list-group-item ">作业上传</a>
-                                    <a href="" class="list-group-item">作业批改</a>
-                                    <a href="" class="list-group-item">头脑风暴</a>
+                                    <!-- <a href="" class="list-group-item">作业批改</a> -->
+                                    <a href="{% url 'Main:学生a页面'%}" class="list-group-item">头脑风暴</a>
                                     <!-- <a href="#" class="list-group-item">管理四</a> -->
                                     <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a>
                                      -->
@@ -87,8 +89,8 @@
                                                     <div class="alert alert-success alert-dismissable">
                                                          <!-- <button type="button"  class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
                                                         <h4>
-                                                            注意!
-                                                        </h4> <strong>文件</strong> 上传成功 <a href="{% url '主页'  %}" class="alert-link">返回上一界面</a>
+                                                            恭喜
+                                                        </h4> <strong>班级</strong> 加入成功 <a href="{% url '主页'  %}" class="alert-link">返回上一界面</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,7 +128,7 @@
                     <div class="col-md-12">
                         <div align="center" style="padding-top: 250px">
                                 <button class="btn btn-default">
-                                        <a class="navbar-brand" href="#">当前用户：{{user.username}}</a>
+                                        <!-- <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> -->
                                     </button>
                         </div>
                     </div>
