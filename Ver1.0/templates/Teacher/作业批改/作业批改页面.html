@@ -1,19 +1,24 @@
 
-
+{% load staticfiles %}
   <!DOCTYPE html>
   <html lang="zh-cn">
   <head>
       <meta charset="utf-8">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-      <title>首页</title>
+      <title>作业批改</title>
       <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-      
-  </head>
+      <!-- <link rel="stylesheet" type="text/css" href="../css/index.css"> -->
+      <!-- <link rel="stylesheet" href="{% static 'css/in dex.css'%}"> -->
+
+
+      <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+      <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+      </head>
   <body>
   <div class="flex-center">
       <div class="container">
@@ -55,7 +60,7 @@
                                        -->
                                        <a href="" class="list-group-item">
                                         <p>批改</p>
-                                        <form action="{% url 'Main:SBT2'%}" method="POST">
+                                    <form action="{% url 'Main:学生f页面'%}" method="POST">
                                             {% csrf_token %}
                                         <label class="radio-inline" >
                                         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="A+"> A+
@@ -77,22 +82,42 @@
                                       </label>
                                     </a>
                                       <br>
-                                      <p class="btn" >评语</p>
+                                      <p class="btn" >评语<span>(先保存下面的图片后在提交才可以将图片上传给学生)</span></p>
                                       <textarea class="form-control" rows="2" name="comment" style="margin-top:5px;"></textarea>
                                       <input type="hidden" value="{{username}}" name="username">
                                       <input type="hidden" value="{{usergrade}}" name="usergrade">
-                                      <button class="btn btn-primary" type="submit"> 批改</button>
-                                    </form>
+                                      <!-- <input type="hidden" value="{{ grade }}" name="grade">
+                                      <input type="hidden" value="{{ img }}" name="image">  
+                                      <input type="hidden" value="{{username}}" name="stuname">
+                                      <input type="hidden" value="{{stugrade}}" name="stu_grade"> -->
+                                      <button class="btn btn-primary" type="submit" style="padding-left: 100px;padding-right: 100px;margin-bottom: 5px;" id="save"> 批改</button>
+                                      <!-- <input type="hidden" id="save"> -->
+                                      <!-- <button id="save" type="button" class="btn btn-primary"   >保存图像</button> -->
+                                      <input type="hidden" name="thumb" id = "thumb" value="">
+                                </form>
                                     
                                        
                                   </div>
                               </div>
-
+                              
                               <div class="col-md-9">
-                                  <div>
+                                  <h3>图片保存区</h3>
+                                    <footer id="footer">
+                                <!-- 已保存的图片 -->
+                                    </footer>
+                                </div>
+                                  <canvas id="canvas" width="1080px" height="720px" style="background-color:cadetblue">123</canvas>
+                                  <div style="margin-left: auto;margin-right:auto;" >
+                                        <!-- <button id="save" type="button" class="btn btn-primary"   >保存图像</button> -->
+                                        <button id="clear" type="button" class="btn btn-primary" >清除修改</button>
+                                        <button id="brush" type="button" class="btn btn-primary">画笔</button>
+                                        <button id="text" type="button" class="btn btn-primary">输入文字</button>
+                                        <button id="red" type="button" class="btn btn-primary">修改线条为红色</button>
+                                    </div>
+                                  <!-- <div>
                                       <ol class="breadcrumb">
                                           <li><span class="glyphicon glyphicon-home"></span> 
-                                              <a href="#">主页</a>
+                                              <a href="{% url 'Main:作业批改'%}">作业批改</a>
                                           </li>
                                           <li class="active"></li>
                                       </ol>
@@ -101,12 +126,8 @@
                                       {% for imgs in img11 %}
                                      <p >{{ imgs.task_uploadname  }}</p>
                                         <img src="/media/{{MEDIA_URL}}{{imgs.task_upload}}" width="850px" >
-                                        {% endfor%}
-                                    </div>
-
-
-
-
+                                        {% endfor%} -->
+                                    <!-- </div>  -->
               {% else %}
               <div>
                       <ol class="breadcrumb">
@@ -130,5 +151,25 @@
           </div>
       </div>
   </div>
+  <script>
+      var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var image = new Image();
+image.onload = function(){
+    console.log(image)
+    image.width = canvas.width;
+    image.height = canvas.height;
+    // canvas.width = image.width;
+    // canvas.height = image.height;
+    ctx.drawImage(image,0,0,1080,720)
+}
+image.setAttribute("crossOrigin",'anonymoaus')
+{% for imgs in img11 %}
+image.src ="/media/{{MEDIA_URL}}{{imgs.task_upload}}"
+{% endfor%}
+
+  </script>
+  <script type="text/javascript" src="{% static 'js/index.js'%}"></script>
+
   </body>
   </html>

@@ -84,59 +84,13 @@ def TaskUpload(request):
             if str(d)==str(b):
                 e=Task.objects.filter(task_uploadname=username,task_grade=b).count()
                 print(e)
-
-                # print(f)
-                # print("c",c)
-                # print("e",str(e))
-                # print("b",b)
-                # print("user",users)
                 if e == 0:
                     myfile = request.FILES.get('file',None)
                     Image1 = Task(task_uploadname=username,task_upload=myfile,task_grade=b)
                     Image1.save()
                     return render(request,'taskupload/upload_success.html')
                 else:
-                #     # myfile = request.FILES.get('file',None)
-                #     # Image1 = Task(task_uploadname=users,task_upload=myfile,task_grade=A)
-                #     # Image1.save()
-                #     # return render(request,'taskupload/upload_success.html')
                     return render(request,"taskupload/upload_false.html")
-                    
-    # return HttpResponse("2")
-        # c=b.count(request.user.username)
-        # grades=Task.objects.all()
-        # D=list()
-        # for oa in grades:
-        #     E=oa.task_grade
-        #     e=str(E)
-        #     D.append(e)
-        # print(D)
-        # print(d)
-        # F = D.count(d)
-        # d= request.POST.get("grade1","")
-        # e= Grade.objects.all()
-        # for A in e:
-        #     B=str(A)
-        #     C=str(d)
-        #     print(B)
-        #     print(C)
-        #     if B == C:
-        #         # return HttpResponse('2333')
-        #         if c != 0 and F >= 1: 
-        #             # myfile = request.FILES.get('file',None)
-        #             # Image1 = Task(task_uploadname=users,task_upload=myfile,task_grade=A)
-        #             # Image1.save()
-        #             # return render(request,'taskupload/upload_success.html')
-        #             return HttpResponse("已经上传过作业")
-        #             # return HttpResponse('2333')
-        #         # else:
-        #         #     myfile = request.FILES.get('file',None)
-        #         #     Image1 = Task(task_uploadname=users,task_upload=myfile,task_grade=A)
-        #         #     Image1.save()
-        #         #     return render(request,'taskupload/upload_success.html')
-                    
-        #     # else:
-    # return HttpResponse("2")
 
 #选项班级专业
 def ChoiecsGradeMajor(request):
@@ -165,6 +119,7 @@ def student_e(request):
     username= Student.objects.get(student_user=users)
     if request.method == "POST":
         b=request.POST.get("grade2","")
+        img = request.POST.get("image","")
         c=abc.objects.get(abc_name=b)
         e=Task.objects.filter(task_grade=c,task_uploadname=username).count()
         if e==0:
@@ -172,9 +127,33 @@ def student_e(request):
         # a=Task.objects.all()
         else:
             a=Task.objects.get(task_grade=c,task_uploadname=username)
-            return render(request,"registration/查看作业.html",{"img":a})
+            return render(request,"registration/查看作业.html",{"img":a,"img1":img})
 
+def student_f(request):
+    if request.method=="POST":
+        name = request.POST.get("username","")
+        grade = request.POST.get("usergrade","")
+        grds  = request.POST.get("thumb","")
+        print(grds)
+        a1=request.POST.get("inlineRadioOptions","")
+        comment1 = request.POST.get("comment","")
+        b1=grade.strip()
+        A1=Score.objects.get(score=a1)
+        c1=abc.objects.get(abc_name=b1)
+        e1=ID.objects.get(username=name)
+        d1=Student.objects.get(student_user=e1)
+        Task.objects.filter(task_grade=c1,task_uploadname=d1).update(task_score=A1,task_comment=comment1)
 
+        img = request.POST.get("image","")
+        # stuname = request.POST.get("stuname","")
+        stugrade= request.POST.get("stu_grade","")
+        # A=stugrade.strip()
+        A=grade.strip()
+        c=ID.objects.get(username=name)
+        d=Student.objects.get(student_user=c)
+        a=abc.objects.get(abc_name=A)
+        Task.objects.filter(task_grade=a,task_uploadname=d).update(task_img=grds)
+    return render(request,"Teacher/作业批改/发布成功.html")
 
 #加入班级-选择专业
 from .forms import Addgradeselectform,Selectmajorform
@@ -214,17 +193,6 @@ def add_grade_select(request):
                 print(b)
                 b.abc_stu.add(d)
                 return render(request,'Student/加入班级-选择成功.html')
-    # return render(request,'Student/加入班级-选择成功.html')
-    # return HttpResponse("加入")
-        # print(users)
-        # print(a)
-        # c=Grade.objects.get(grade_id=a)
-        # print(c)
-        # b=Student.objects.filter(student_user=users).update(student_grade=c)
-        # print(b)
-
-
-    
 
 #提交作业-选择班级
 from .forms import submitselectgradeform,Teacherselectgradeform
@@ -262,13 +230,6 @@ def creategrade_name(request):
             return render(request,'Teacher/创建班级成功.html')  
         else:
             return HttpResponse("班级名已经存在")
-        # for e in d:
-        #     print(str(e))
-        # abc.objects.create(abc_name=a)   #创建班级
-        # c=abc.objects.get(abc_name=a)
-        # print(c)
-        # b=Teacher.objects.get(teacher_user=users)
-        # b.teacher_grade.add(c)
    
 #老师-作业批改
 def task_check(request):
@@ -284,9 +245,6 @@ def task_check(request):
 from .forms import Teacherselectgradeform
 def teacher_sg(request):
     users = request.user
-    # if request.method == "POST":
-    #     a=Teacherselectgradeform(request.POST)
-    #     print(a)
     a=Teacher.objects.get(teacher_user=users)
     A=a.teacher_grade.all()
     return render(request,"Teacher/作业批改1.html",{"teachergrade":A})
@@ -295,9 +253,6 @@ def teacher_sg(request):
 #老师头脑风暴选择班级
 def teacher_e(request):
     users = request.user
-    # if request.method == "POST":
-    #     a=Teacherselectgradeform(request.POST)
-    #     print(a)
     a=Teacher.objects.get(teacher_user=users)
     A=a.teacher_grade.all()
     return render(request,"Teacher/头脑风暴/Teacher-Tou_1.html",{"teachergrade":A})
@@ -310,37 +265,19 @@ def teacher_f(request):
         a=request.POST.get("grade","")
         aa=abc.objects.get(abc_name=a)
         print(a)
-        # b=Grade.objects.get(grade_id=a)
-        # print(b)
         c=Question.objects.filter(question_who=username,question_grade=aa)
         count=c.count()
         if count == 0:
             c=('无')
             b=('')
-            # cc=Question.objects.get(question_who=username,question_grade=aa)
-            # b=Answer.objects.filter(question=cc)
-            print(c)
-            # print(b)
             A=Question.objects.filter(question_who=username)
             return render(request,"Teacher/头脑风暴/Teacher-Tou_3.html",{"grade":a,"answer":b,"question":c,"teacher_question":A})
         else:
             cc=Question.objects.get(question_who=username,question_grade=aa)
             b=Answer.objects.filter(question=cc)
-            print(c)
-            # print(b)
             A=Question.objects.filter(question_who=username)
-            # B=A.question.all()
-            print(A)
-            # print(B)     
+            print(A)     
             return render(request,"Teacher/头脑风暴/Teacher-Tou_3.html",{"grade":a,"answer":b,"question":c,"teacher_question":A})
-    # else:
-    #     return HttpResponse('2')
-
-
-
-
-
-
 
 #老师头脑风暴页面                         
 def teacher_a(request):
@@ -402,11 +339,6 @@ def teacherSub_s_1(request):
         aa=abc.objects.get(abc_name=a)  
         print(a)
         b=Task.objects.filter(task_grade=aa) #当前选择班级的学生
-        # B=list()
-        # for C in b:
-        #     d=ID.objects.get(username=C)
-        #     A=Student.objects.get(student_user=d)
-        #     B.append(A)
         return render(request,"Teacher/作业批改-确定班级.html",{"task":b})
 
 #老师批改作业
@@ -417,14 +349,9 @@ def SBT(request):
         BaB=request.POST.get("usergrade","")
         B=BaB.strip()
         bb=abc.objects.get(abc_name=B)
-        # print(a)
-        # print(bb)
         e=ID.objects.get(username=AbA)
         c=Student.objects.get(student_user=e)
-        # print(c)
         img11= Task.objects.filter(task_grade=bb,task_uploadname=c)
-        # ,task_uploadname=c)
-        # print(img.task_grade())
     return render(request,"Teacher/作业批改/作业批改页面.html",{"img11":img11,"username":AbA,"usergrade":BaB})
 
 #作业批改页面
@@ -433,15 +360,17 @@ def SBT2(request):
     if request.method =="POST":
         name = request.POST.get("username","")
         grade = request.POST.get("usergrade","")
-        a=request.POST.get("inlineRadioOptions","")
-        comment = request.POST.get("comment","")
-        b=grade.strip()
-        A=Score.objects.get(score=a)
-        c=abc.objects.get(abc_name=b)
-        e=ID.objects.get(username=name)
-        d=Student.objects.get(student_user=e)
-        Task.objects.filter(task_grade=c,task_uploadname=d).update(task_score=A,task_comment=comment)
-    return render(request,"Teacher/作业批改/作业批改成功页面.html")
+        grds  = request.POST.get("thumb","")
+        print(grds)
+        a1=request.POST.get("inlineRadioOptions","")
+        comment1 = request.POST.get("comment","")
+        b1=grade.strip()
+        A1=Score.objects.get(score=a1)
+        c1=abc.objects.get(abc_name=b1)
+        e1=ID.objects.get(username=name)
+        d1=Student.objects.get(student_user=e1)
+        Task.objects.filter(task_grade=c1,task_uploadname=d1).update(task_score=A1,task_comment=comment1)
+    return render(request,"Teacher/作业批改/作业批改成功页面.html",{"img":grds,"username":name,"stugrade":grade})
 
 
 def studnet_a(request):
@@ -450,9 +379,6 @@ def studnet_a(request):
 #学生头脑风暴-选择班级a
 def student_b(request):
     users = request.user
-    # if request.method == "POST":
-    #     a=Teacherselectgradeform(request.POST)
-    #     print(a)
     a=Student.objects.get(student_user=users)
     A=a.abc_stu.all()
     return render(request,"Student/头脑风暴/Tou-选择班级2.html",{"grade":A})
@@ -473,8 +399,6 @@ def student_c(request):
             cc=Question.objects.get(question_grade=aa)
             b=Answer.objects.filter(question=cc)
             return render(request,"Student/头脑风暴/Tou-选择班级3.html",{"grade":a,"question":c,"answer":b})
-        # else:
-        #     return HttpResponse("2")
 
 #学生头脑风暴-提交问题成功页面
 def student_d(request):

@@ -60,6 +60,7 @@ class Task(models.Model):
     task_upload     = models.ImageField(upload_to="作业/")
     task_grade      = models.ForeignKey("abc",verbose_name=u"作业的班级",on_delete=models.CASCADE)
     task_comment = models.CharField(max_length=500,null=True,blank=True)
+    task_img = models.TextField(max_length=16000,null=True,blank=True)
     def __str__(self):
         return "%s"%(self.task_upload)
     class Meta:

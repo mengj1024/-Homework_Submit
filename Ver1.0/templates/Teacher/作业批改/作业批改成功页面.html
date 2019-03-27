@@ -20,11 +20,27 @@
                      <!-- <button type="button"  class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
                     <h4>
                         {{user.username}}
-                    </h4> <strong>注意</strong> 批改成功 <a href="{% url 'Main:作业批改'  %}" class="alert-link">返回上一界面</a>
+                    </h4> <strong>注意</strong> 批改成功  <form action="{% url 'Main:学生f页面'%}" method="POST">
+                        {% csrf_token %}
+                    <!-- <input type="text" class="form-control" placeholder="Text input" name="Question"> -->
+                    <input type="hidden" value="{{ grade }}" name="grade">
+                    <input type="hidden" value="{{ img }}" name="image">
+                    <div align="right">
+                <div class="modal-footer">
+                        <input type="hidden" value="{{username}}" name="stuname">
+                        <input type="hidden" value="{{stugrade}}" name="stu_grade">
+                        <button class="btn btn-info" type="submit">
+                                发布
+                        </button>
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                </div>
+            </form>
+            <button href="{% url 'Main:作业批改'  %}" class="btn btn">返回上一界面</button>
                 </div>
             </div>
         </div>
     </div>
+    <img src="{{ img}}">
 
 </body>
 </html>

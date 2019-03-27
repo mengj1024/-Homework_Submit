@@ -36,6 +36,7 @@ urlpatterns=[
     url("student_c/",views.student_c,name=u"学生c页面"),
     url("student_d/",views.student_d,name=u'学生d页面'),
     url("2333/",views.student_e,name=u"学生e页面"),
+    url("2444/",views.student_f,name=u"学生f页面"),
     url('SBT_1/',views.SBT,name=u'SBT1'),
     url("SBT_2/",views.SBT2,name=u'SBT2'),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

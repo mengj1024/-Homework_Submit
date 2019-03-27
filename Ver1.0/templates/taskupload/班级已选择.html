@@ -106,16 +106,18 @@
                                            <table class="table table-hover">
                                             <!-- <caption>条纹表格布局</caption> -->
                                               <tr >
-                                                <th  >我的作业</th>
-                                                <th class="text-left">作业批改</th>
+                                                <th  class="text-center">我的作业</th>
+                                                <th class="text-center">作业批改</th>
+                                                <th class="text-center">评语</th>
                                               </tr>
                                             </thead>
                                             <tbody>
                                                 {%for  tasks in task%}
                                               <tr>
-                                                <td >{{ tasks.task_upload }}</td>
+                                                <td class="text-center">{{ tasks.task_upload }}</td>
                                                 <td class="text-center" style="word-break:break-all; word-wrap:break-all;">{{ tasks.task_score }}</td>
-                                              </tr>
+                                                <td class="text-center" style="word-break:break-all; word-wrap:break-all;">{{tasks.task_comment}}</td>
+                                            </tr>
                                               
                                               {% endfor%}
                                             </tbody>

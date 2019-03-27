@@ -22,7 +22,14 @@
     <div class="container">
         <div class="flex-center">
             <div class="unit-1-2 unit-1-on-mobile">
-                <h3>teacher登录</h3>
+                <div>
+                    <ol class="breadcrumb">
+                        <li><span class="glyphicon glyphicon-home"></span> 
+                            <a  href="{% url '主页'%}">Teacher登录</a>
+                        </li>
+                        <li class="active"></li>
+                    </ol>
+            </div>
                 <form class="form" action="{% url 'Main:老师登陆' %}" method="post" {% csrf_token %}
                     {% csrf_token %}
                     <p>
