@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        function previewFile() {
+            var preview = document.querySelector('img');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }</script>
+</head>
+
+<body>
+    <div class="flex-center">
+        <div class="container">
+            <div>
+                <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
+                {% if user.is_authenticated %}
+                <!-- <p>你已登录，欢迎你：<a href="#">{{ user.username }}</a></p> -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav class="navbar navbar-fixed-top" role="navigation">
+                                <div class="container">
+                                    <div class="navbar-header">
+                                        <a href="" class="navbar-brand " href="#">毕业设计-学生</a>
+                                        <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
+                                    </div>
+                                    <div>
+                                        <a class="navbar-brand" href="#">当前用户：{{user.username}}</a>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 45px">
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <!--激活，作为标题-->
+                                <!-- <p  class="list-group-item active ">
+                                        系统菜单
+                                    </p> -->
+                                <a href="{% url '主页'%}" class="list-group-item active">
+                                    系统菜单
+                                </a>
+                                <a href="{% url 'Main:作业上传'%}" class="list-group-item ">作业上传</a>
+                                <!-- <a href="" class="list-group-item">作业批改</a> -->
+                                <a href="{% url 'Main:学生a页面'%}" class="list-group-item">头脑风暴</a>
+                                <!-- <a href="#" class="list-group-item">管理四</a> -->
+                                <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a>
+                                     -->
+
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div>
+                                <ol class="breadcrumb">
+                                    <li><span class="glyphicon glyphicon-home"></span> 
+                                        <a href="#">主页</a>
+                                    </li>
+                                    <li class="active"></li>
+                                </ol>
+                            </div>
+                            <div>
+                                <!-- <button class="btn btn-default" style="padding-left:50px;padding-right: 50px;">
+                                                <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a>
+                                    </button>   -->
+                                <div class="container">
+                                    <div class="row clearfix">
+                                        <div class="col-md-12 column">
+                                            <div class="alert alert-success alert-dismissable">
+                                                <!-- <button type="button"  class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
+                                                <h4>
+                                                    恭喜
+                                                </h4> <strong>班级</strong> 加入成功 <a href="{% url '主页'  %}"
+                                                    class="alert-link">返回上一界面</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% else %}
+                                <div>
+                                    <ol class="breadcrumb">
+                                        <li><span class="glyphicon glyphicon-home"></span> 
+                                            <a>你还没有登录</a>
+                                        </li>
+                                        <li class="active"></li>
+                                    </ol>
+                                </div>
+                                <div>
+                                    <ol class="breadcrumb">
+                                        <li><span class="glyphicon glyphicon-home"></span> 
+                                            <p>学生请：</p>
+                                            <button class="btn btn-default"><a
+                                                    href="{% url 'login1' %}?next={{ request.path }}">登录</a></button>
+                                            <button class="btn btn-default"><a
+                                                    href="{% url 'Main:学生注册' %}">注册</a></button>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div>
+                                    <ol class="breadcrumb">
+                                        <li><span class="glyphicon glyphicon-home"></span> 
+                                            <p>老师请：</p>
+                                            <button class="btn btn-default"><a
+                                                    href="{% url 'Main:老师登陆' %}?next={{ request.path }}">登录</a></button>
+                                        </li>
+                                        <li class="active"></li>
+                                    </ol>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div align="center" style="padding-top: 250px">
+                                            <button class="btn btn-default">
+                                                <!-- <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> -->
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</body>
+
+</html>

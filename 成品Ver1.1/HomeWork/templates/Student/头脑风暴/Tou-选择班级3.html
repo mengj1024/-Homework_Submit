@@ -1,0 +1,324 @@
+<!-- {% load Main_tags %}
+
+{% get_recent_posts as recent_post_list %}
+<ul>
+  {% for post in recent_post_list %}
+  <li>
+    <a href="{{post.get_absolute_url}}">{{ post.grade_name }}</a>
+  </li>
+  {% empty %}
+  暂无文章！
+  {% endfor %} -->
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="flex-center">
+        <div class="container">
+            <div>
+                <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
+                {% if user.is_authenticated %}
+                <!-- <p>你已登录，欢迎你：<a href="#">{{ user.username }}</a></p> -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav class="navbar navbar-fixed-top" role="navigation">
+                                <div class="container">
+                                    <div class="navbar-header">
+                                        <a href="" class="navbar-brand " href="#">毕业设计-学生</a>
+                                        <!-- <h1 class="logo"><a href="{% url 'login1' %}">毕业设计</a></h1> -->
+                                    </div>
+                                    <div>
+                                        <a class="navbar-brand" href="#">当前用户：{{user.username}}</a>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 45px">
+                        <div class="col-md-3">
+                            <div class="list-group">
+                                <!--激活，作为标题-->
+                                <!-- <p  class="list-group-item active ">
+                                          系统菜单
+                                      </p> -->
+                                <a href="{% url '主页'%}" class="list-group-item">
+                                    系统菜单
+                                </a>
+                                <a href="{% url 'Main:作业上传'%}" class="list-group-item">作业上传</a>
+                                <!-- <a href="" class="list-group-item">作业批改</a> -->
+                                <a href="{% url 'Main:学生a页面'%}" class="list-group-item active">头脑风暴</a>
+                                <!-- <a href="#" class="list-group-item">管理四</a> -->
+                                <!-- <a href="{% url 'logout' %}?next={{ request.path }}" class="list-group-item">退出</a>
+                                       -->
+
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <ol class="breadcrumb">
+                                <li><span class="glyphicon glyphicon-home"></span> 
+                                    <a href="#">头脑风暴</a>
+                                </li>
+                            </ol>
+                            <div style="background-color:#ECECEC">
+                                <p>当前班级：{{grade}}</p>
+                            </div>
+                            {% for a in question%}
+                            <h3>问题:</h3>
+
+                            <div>
+                                <textarea class="form-control" rows="3" type="text" placeholder="{{a}}"
+                                    readonly></textarea>
+                            </div>
+                            {% endfor%}
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a class="btn btn-info" role="button" data-toggle="collapse"
+                                                data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                添加Thread
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                        aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <form action="{% url 'Main:学生d页面'%}" method="POST">
+                                                {% csrf_token %}
+                                                <div>
+                                                    <p>输入回答:</p>
+                                                    <textarea class="form-control" rows="6" name="answer"></textarea>
+                                                </div>
+                                                <div align="center">
+                                                    <button class="btn btn-info" type="submit"">提交Thread</button>
+                                                </div>
+                                                    <input type="hidden" value="{{grade}}" name="grade">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="btn btn-info" role="button" data-toggle="collapse"
+                                                data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">
+                                                添加Thread观点
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                        aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            选择Thread
+                                            <form action="{% url 'Main:学生g页面'%}" method="POST">
+                                                {% csrf_token %}
+                                                <div style="padding-top:10px;">
+                                                    <select class="form-control" name="answer">
+                                                        {% for answer1 in answer %}
+                                                        <!-- <option value="">{{name}}</option> -->
+                                                        <option value="{{ answer1 }}">{{ answer1 }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                输入观点：
+                                                <div align="center">
+                                                    <textarea class="form-control" rows="6" name="th1"></textarea>
+                                                    {% for b in question%}
+                                                    <input type="hidden" value="{{b}}" name="question">
+                                                    {%endfor%}
+                                                    <button class="btn btn-info" type="submit">提交Thread观点</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <form action="{% url 'Main:学生d页面'%}" method="POST">
+                                {% csrf_token %}
+                                <div style="padding-top:30px;">
+                                    <p>输入回答:</p>
+                                    <textarea class="form-control" rows="6" name="answer"></textarea>
+                                </div>
+                                <div align="center">
+                                    <button class="btn btn-info" type="submit"">提交Thread</button>
+                                        </div>
+                                        <input type="hidden" value="{{grade}}" name="grade">
+                            </form> -->
+                            <!-- <form action="" method="POST"> 
+                                    <div style="padding-top:10px;">
+                                            <select class="form-control" name="grade">
+                                                {% for answer1 in answer %} -->
+                            <!-- <option value="">{{name}}</option> -->
+                            <!-- <option value="{{ answer1 }}">{{ answer1 }}</option>
+                                                {% endfor %}
+                                            </select></div>
+                                <div align="center">
+                                    <button class="btn btn-info" type="submit">提交Thread观点</button>
+                                </div>
+                            </form> -->
+                            <table class="table table-hover">
+                                <!-- <caption>条纹表格布局</caption> -->
+                                <tr>
+                                    <th width='130px'>Thread提出者</th>
+                                    <th class="text-center">Thread内容</th>
+                                    <th class="text-center">老师点评</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {%for answers in answer %}
+                                    <tr>
+                                        <td width='100px' style="padding:5px;">{{ answers.answer_who }}</td>
+                                        <!-- <td class="text-left" style="word-break:break-all; word-wrap:break-all;">
+                                            {{ answers }}</td> -->
+                                        <td style="padding:5px;" width="400px">
+                                            <div align="center">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="headingThree">
+                                                        <h4 class="panel-title">
+                                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                                                data-parent="#accordion" href="#collapseThree"
+                                                                aria-expanded="false" aria-controls="collapseThree">
+                                                                {{answers}}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseThree" class="panel-collapse collapse"
+                                                        role="tabpanel" aria-labelledby="headingThree">
+                                                        <div class="list-group">
+                                                            {% for bb in answers.thread_set.all %}
+                                                            <ul class="list-group" align="left">
+                                                                <li class="list-group-item"
+                                                                    style="word-break:break-all; word-wrap:break-all;margin: 5px;padding: 5px;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        <font style="vertical-align: inherit;">
+                                                                            <a
+                                                                                style="color:#889e76;">{{bb.thread_who}}：</a>{{bb}}
+                                                                        </font>
+                                                                    </font>
+                                                                </li>
+                                                            </ul>
+                                                            {% endfor%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="word-break:break-all; word-wrap:break-all;padding: 5px;margin: 5px;"
+                                            class="text-center">
+                                            <div align="center">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="headingfour">
+                                                        <h4 class="panel-title">
+                                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                                                data-parent="#accordion" href="#collapsefour"
+                                                                aria-expanded="false" aria-controls="collapsefour" style="display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;">
+
+                                                                {{answers.answer_teacher}}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapsefour" class="panel-collapse collapse"
+                                                        role="tabpanel" aria-labelledby="headingfour">
+                                                        <div class="list-group">
+                                                            <ul class="list-group" align="left">
+                                                                <li class="list-group-item"
+                                                                    style="word-break:break-all; word-wrap:break-all;margin: 5px;padding: 5px;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        <font style="vertical-align: inherit;">
+                                                                            {{answers.answer_teacher}}
+                                                                        </font>
+                                                                    </font>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+
+                            <!-- 测试 -->
+
+                            <!-- 测试结束 -->
+                        </div>
+                    </div>
+
+                </div>
+                <button class="btn btn-default">
+                    <!-- <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a><br> -->
+
+                </button>
+
+                {% else %}
+                <div>
+                    <ol class="breadcrumb">
+                        <li><span class="glyphicon glyphicon-home"></span> 
+                            <a>你还没有登录</a>
+                        </li>
+                        <li class="active"></li>
+                    </ol>
+                </div>
+                <div>
+                    <ol class="breadcrumb">
+                        <li><span class="glyphicon glyphicon-home"></span> 
+                            <p>学生请：</p>
+                            <button class="btn btn-default"><a
+                                    href="{% url 'login1' %}?next={{ request.path }}">登录</a></button>
+                            <button class="btn btn-default"><a href="{% url 'Main:学生注册' %}">注册</a></button>
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    <ol class="breadcrumb">
+                        <li><span class="glyphicon glyphicon-home"></span> 
+                            <p>老师请：</p>
+                            <button class="btn btn-default"><a
+                                    href="{% url 'Main:老师登陆' %}?next={{ request.path }}">登录</a></button>
+                        </li>
+                        <li class="active"></li>
+                    </ol>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div align="center" style="padding-top: 250px">
+                            <button class="btn btn-default">
+                                <!-- <a class="navbar-brand" href="#">当前用户：{{user.username}}</a> -->
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

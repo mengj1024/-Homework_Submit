@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="flex-center">
+        <div class="container">
+            <div class="flex-center">
+                <div class="unit-1-2 unit-1-on-mobile">
+                    <div>
+                        <ol class="breadcrumb">
+                            <li><span class="glyphicon glyphicon-home"></span> 
+                                <a href="{% url '主页'%}">Teacher登录</a>
+                            </li>
+                            <li class="active"></li>
+                        </ol>
+                    </div>
+                    <form class="form" action="{% url 'Main:老师登陆' %}" method="post" {% csrf_token %} {% csrf_token %}
+                        <p>
+                        {{ form_obj.username.label }}
+                        {{ form_obj.username }}
+                        <span class="error">{{ form_obj.username.errors.0 }}</span>
+                        </p>
+                        <p>
+                            {{ form_obj.password.label }}
+                            {{ form_obj.password }}
+                            <span class="error">{{ form_obj.password.errors.0 }}</span>
+                        </p>
+                        <p>
+                            <button type="submit" class="btn btn-primary btn-block">登录</button>
+                            <span>{{ error_msg }}</span>
+                        </p>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
